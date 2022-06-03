@@ -17,8 +17,8 @@ class AuotoWrite:
         # ?处是要填写的
         self.data = None
         self.param = {
-            "stuNum": "?",  # 学号
-            "pwd": "?",  # 密码
+            "stuNum": "190704122",  # 学号
+            "pwd": "Lc2#9807211033",  # 密码
             "vcode": "",
         }
         self.my_email = "?"  # 此处是python发送邮件利用的邮箱
