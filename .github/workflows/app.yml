@@ -1,0 +1,32 @@
+name: tiwentianbao
+
+on:
+  workflow_dispatch: #在actions界面点击即可运行
+  schedule:
+    - cron: '10 2,3 * * *'  
+  #在UTC时间2:10,3:10运行，也就是北京时间10点10分和11点10分
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - run:  pip install -r ./r.txt  #此处为安装依赖包
+    - run: python ./temperature.py  #此处为python代码的文件名
+   #发送邮件，可选
+    - name: 'Send mail' 
+      uses: dawidd6/action-send-mail@master
+      with:
+          # 这些是发送邮件需要配置的参数，更多详细的说明请访问具体的仓库
+        server_address: smtp.163.com
+        server_port: 465
+          # 这些sectret的环境变量需要配置在setting中的secret下
+        username: ${{ secrets.EMAILNAME }}  #变量名需与配置的一致
+        password: ${{ secrets.EMAILPOP }}
+        subject: 每日体温填报
+        body: file://mydata.html
+        to: 0000000@qq.com   #填写要收件邮箱名
+        from: GitHub Actions
+        content_type: text/html
